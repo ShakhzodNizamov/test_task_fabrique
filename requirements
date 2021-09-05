@@ -1,0 +1,5 @@
+Django==2.2.10
+djangorestframework==3.12.4
+djangorestframework-simplejwt
+djoser
+drf-yasg
