@@ -5,7 +5,7 @@ from rest_framework import permissions
 from rest_framework import viewsets
 from rest_framework.exceptions import APIException
 
-from .serializers import SurveySerializer, QuestionSerializer, VoteSerializer, ChoiceSerializer
+from .serializers import SurveySerializer, QuestionSerializer, VoteSerializer, ChoiceSerializer, VoteListSerializer
 from survey.models import Survey, Question, Vote, Choice
 from survey.permissions import SurveyPermission, QuestionPermission
 
@@ -114,3 +114,8 @@ class UserVoteDetailView(viewsets.ModelViewSet):
         raise APIException(
             'User not found'
         )
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return VoteListSerializer
+        return VoteSerializer

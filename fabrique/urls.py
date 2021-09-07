@@ -26,7 +26,7 @@ from survey.api.views import SurveyView, QuestionView, ActiveSurveyView, ChoiceV
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Poll API",
+        title="Survey API",
         default_version='v1',
         description="Fabrique test task"
     ),
@@ -45,6 +45,8 @@ router.register(r'user/(?P<user_id>\d+)', UserVoteDetailView, 'uservotedetail')
 
 
 urlpatterns = [
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.jwt')),
     url(r'^v1/', include((router.urls, 'v1'), namespace='v1')),
     path('admin/', admin.site.urls),
 

@@ -7,7 +7,7 @@ from survey.api.serializers import SurveySerializer
 from survey.models import Survey
 
 
-class ActiveSurveyAPITestCAse(APITestCase):
+class SurveyAPITestCAse(APITestCase):
     def test_get(self):
         survey1 = Survey.objects.create(
             title='Survey1',

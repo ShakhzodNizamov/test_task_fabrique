@@ -131,7 +131,7 @@ class VoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vote
         fields = ('id', 'survey', 'id_user', 'answers')
-        read_only_fields = ('id', 'user', 'vote_date')
+        # read_only_fields = ('id', 'user', 'vote_date')
 
     def create(self, validated_data):
         if 'answers' not in self.initial_data:
@@ -166,10 +166,19 @@ class VoteSerializer(serializers.ModelSerializer):
         return answers
 
 
-class VoteListSerializer(serializers.ModelSerializer):
+class UserVoteSerializer(serializers.ModelSerializer):
     question = serializers.StringRelatedField()
-    choice = serializers.StringRelatedField(many=True)
+    choice = ChoiceSerializer(read_only=True, many=True)
 
     class Meta:
         model = Answer
-        fields = ('question', 'choice', 'value')
+        fields = ('id', 'question', 'choice', 'value')
+
+
+class VoteListSerializer(serializers.ModelSerializer):
+    answers = UserVoteSerializer(many=True)
+    survey = serializers.StringRelatedField()
+
+    class Meta:
+        model = Vote
+        fields = ('id', 'id_user', 'survey', 'vote_date', 'answers')

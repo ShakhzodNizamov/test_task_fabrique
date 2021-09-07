@@ -11,6 +11,9 @@ class Survey(models.Model):
     start_date = models.DateField(verbose_name='Start date')
     end_date = models.DateField(verbose_name='End date')
 
+    def __str__(self):
+        return self.title
+
 
 class Question(models.Model):
     """
@@ -31,6 +34,9 @@ class Question(models.Model):
     text = models.TextField(verbose_name='Text', max_length=1024)
     type = models.SmallIntegerField(verbose_name='Type', choices=choice_case, default=TEXT)
 
+    def __str__(self):
+        return self.text
+
 
 class Choice(models.Model):
     """
@@ -44,6 +50,9 @@ class Choice(models.Model):
     )
 
     text = models.TextField(verbose_name='Text of question', max_length=1024)
+
+    def __str__(self):
+        return self.text
 
 
 class Vote(models.Model):
@@ -72,9 +81,12 @@ class Answer(models.Model):
         to=Choice,
         verbose_name='Choice',
         through='ChoiceAnswer',
-        related_name='answers'
+        related_name='choices'
     )
     value = models.TextField(verbose_name='Value', max_length=1024, blank=True, null=True)
+
+    def __str__(self):
+        return self.value
 
 
 class ChoiceAnswer(models.Model):
